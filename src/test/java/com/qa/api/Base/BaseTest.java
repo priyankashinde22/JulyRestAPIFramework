@@ -1,17 +1,17 @@
 package com.qa.api.Base;
 
 
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.qa.api.client.RestClient;
+import com.qa.api.wiremock.WireMockSetup;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 
-
-
 public class BaseTest {
-
 
 	// ***********App Base URLs**************
 	protected final static String BASE_URL_REQ_RES = "https://reqres.in";
@@ -34,14 +34,25 @@ public class BaseTest {
 	protected static final String CONTACTS_USER_LOGIN_ENDPOINT = "/users/login";
 	protected static final String CONTACTS_ALL_ENDPOINT = "/contacts";
 
-	
-
 	protected RestClient restClient;
+
+	@BeforeSuite
+	public void setupReport() {
+		RestAssured.filters(new AllureRestAssured());
+
+	}
 
 	@BeforeTest
 	public void setup() {
-		RestAssured.filters(new AllureRestAssured());
 		restClient = new RestClient();
+		WireMockSetup.createWireMockServer();
 	}
+	
+	
+	@AfterTest
+	public void stopMockServer() {
+		WireMockSetup.stopWireMockServer();
+	}
+	
 
 }
