@@ -10,8 +10,6 @@
 	</listeners>
 
 
-
-
 	<test name="GET User Test">
 
 		<classes>
@@ -78,8 +76,16 @@
 			<class name="com.qa.api.amadeus.tests.AmadeusAPITest" />
 		</classes>
 	</test>
-
-
+	<test name="MOCK API Test">
+		<classes>
+			<class name="com.qa.api.mocking.tests.MockGetProductAPITest" />
+		</classes>
+	</test>
+	<test name="Product Schema API Test">
+		<classes>
+			<class name="com.qa.api.schemavalidation.tests.ProductAPISchemaTest" />
+		</classes>
+	</test>
 
 
 </suite>
